@@ -17,18 +17,16 @@
                 <div class="column is-half is-offset-one-quarter">
                     <div class="card">
                         <div class="card-image has-text-centered">
-                            <figure class="image is-inline-block">
-                                <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_zKgCj9.json"
-                                    mode="bounce" background="transparent" speed="0.8"
-                                    style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+                            <figure class="image is-inline-block animation">
+                                <img id="animation" src="./images/animation-playing.gif" alt="ping pong animation">
                             </figure>
                         </div>
-                        <header class="card-header">
+                        <header class="card-header ">
                             <p class="card-header-title">
                                 Ping Pong Keeper 🏓
                             </p>
                         </header>
-                        <div class="card-content">
+                        <div class="card-content has-text-centered">
                             <div class="content">
                                 <h1 class="title is-size-1"><span id="scoreDisplayP1">0</span> to <span
                                         id="scoreDisplayP2">0</span></h1>
@@ -48,11 +46,11 @@
                                 </div>
                             </div>
                         </div>
-                        <footer class="card-footer">
-                            <button id="btnPlayer1" class="is-primary button card-footer-item">+1 Player One</button>
-                            <button id="btnPlayer2" class="is-info button card-footer-item">+1 Player Two</button>
+                        <div class="buttons is-centered">
+                            <button id="btnPlayer1" class="is-primary button card-footer-item ">+1 Player One</button>
+                            <button id="btnPlayer2" class="is-info button card-footer-item ">+1 Player Two</button>
                             <button id="btnReset" class="is-danger button card-footer-item">Reset</button>
-                        </footer>
+                        </div>
                     </div>
                 </div>
             </div>

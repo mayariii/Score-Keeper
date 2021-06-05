@@ -1,16 +1,43 @@
-const scoreDisplayP1 = document.querySelector('#scoreDisplayP1');
-const scoreDisplayP2 = document.querySelector('#scoreDisplayP2');
+const p1 = {
+    score: 0,
+    button: document.querySelector('#btnPlayer1'),
+    display: document.querySelector('#scoreDisplayP1')
+}
 
-const btnPlayer1 = document.querySelector('#btnPlayer1');
-const btnPlayer2 = document.querySelector('#btnPlayer2');
+const p2 = {
+    score: 0,
+    button: document.querySelector('#btnPlayer2'),
+    display: document.querySelector('#scoreDisplayP2')
+}
+const animationSources = {
+    playing: "./images/animation-playing.gif",
+    winner: "./images/animation-trophy.gif"
+}
+
+const animation = document.querySelector('#animation');
 
 const inputPointsToWin = document.querySelector('#sets');
 
-// initialise score and game status
-let scoreP1 = 0;
-let scoreP2 = 0;
+// initialise game status
 let winningScore = 3;
 let isWinner = false;
+
+
+
+function updateScores(player, opponent) {
+    if (!isWinner) {
+        player.score++;
+        if (player.score === winningScore) {
+            player.display.classList.add('winner');
+            opponent.display.classList.add('loser');
+            isWinner = true;
+            player.button.disabled = true;
+            opponent.button.disabled = true;
+            animation.setAttribute('src', animationSources.winner);
+        }
+        player.display.textContent = player.score;
+    }
+}
 
 
 // set number of sets
@@ -19,41 +46,13 @@ inputPointsToWin.addEventListener('change', function () {
     resetGame();
 })
 
-btnPlayer1.addEventListener('click', function () {
-    if (!isWinner) {
-        if (scoreP1 !== winningScore) {
-            scoreP1++;
-            scoreDisplayP1.textContent = scoreP1;
-
-        }
-        if (scoreP1 === winningScore) {
-            showWinner(scoreDisplayP1, scoreDisplayP2);
-        }
-    }
+p1.button.addEventListener('click', function () {
+    updateScores(p1, p2);
 })
 
-btnPlayer2.addEventListener('click', function () {
-    if (!isWinner) {
-        if (scoreP2 !== winningScore) {
-            scoreP2++;
-            scoreDisplayP2.textContent = scoreP2;
-
-        }
-        if (scoreP2 === winningScore) {
-            showWinner(scoreDisplayP2, scoreDisplayP1);
-        }
-    }
+p2.button.addEventListener('click', function () {
+    updateScores(p2, p1);
 })
-
-// adds styling to show winner vs loser and sets game status to show there is a winner
-function showWinner(winningDisplay, losingDisplay) {
-    winningDisplay.classList.add('winner');
-    losingDisplay.classList.add('loser');
-    isWinner = true;
-    btnPlayer1.disabled = true;
-    btnPlayer2.disabled = true;
-}
-
 
 // reset button
 const btnReset = document.querySelector('#btnReset');
@@ -61,18 +60,19 @@ const btnReset = document.querySelector('#btnReset');
 btnReset.addEventListener('click', resetGame)
 
 function resetGame() {
-    // reset the score
-    scoreP1 = 0;
-    scoreP2 = 0;
-    // reset the content
-    scoreDisplayP1.innerText = scoreP1;
-    scoreDisplayP2.innerText = scoreP2;
-    // remove the classes
-    scoreDisplayP1.classList.remove('winner', 'loser');
-    scoreDisplayP2.classList.remove('winner', 'loser');
-    // reset bool 
+    // status is game over
     isWinner = false;
-    // enable buttons again
-    btnPlayer1.disabled = false;
-    btnPlayer2.disabled = false;
+    for (let p of [p1, p2]) {
+        // reset the score
+        p.score = 0;
+        // reset the content
+        p.display.textContent = 0;
+        // remove the classes
+        p.display.classList.remove('winner', 'loser');
+        // enable buttons again
+        p.button.disabled = false;
+        // reset animation
+        animation.setAttribute('src', animationSources.playing);
+    }
+
 }
