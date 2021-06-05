@@ -50,6 +50,8 @@ function showWinner(winningDisplay, losingDisplay) {
     winningDisplay.classList.add('winner');
     losingDisplay.classList.add('loser');
     isWinner = true;
+    btnPlayer1.disabled = true;
+    btnPlayer2.disabled = true;
 }
 
 
@@ -70,4 +72,7 @@ function resetGame() {
     scoreDisplayP2.classList.remove('winner', 'loser');
     // reset bool 
     isWinner = false;
+    // enable buttons again
+    btnPlayer1.disabled = false;
+    btnPlayer2.disabled = false;
 }
